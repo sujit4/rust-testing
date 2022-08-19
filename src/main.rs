@@ -12,7 +12,7 @@ fn build_message(name: String) -> String{
 
 #[test]
 fn test_build_message(){
-    let name = String::from("Fikayo");
+    let name = String::from("Ganymede");
 
-    assert_eq!(build_message(name), "You are welcome Fikayo")
+    assert_eq!(build_message(name), "You are welcome Ganymede")
 }
