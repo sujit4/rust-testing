@@ -17,7 +17,7 @@ jobs:
       SEMGREP_REPO_NAME: << parameters.repo_path >>
       SEMGREP_REPO_URL: << pipeline.project.git_url >>
       SEMGREP_BRANCH: << pipeline.git.branch >>
-      SEMGREP_AUDIT_ON: unknown
+      # SEMGREP_AUDIT_ON: unknown
       SEMGREP_TIMEOUT: 300
     docker:
       - image: returntocorp/semgrep
@@ -40,5 +40,5 @@ jobs:
 workflows:
   main:
     jobs:
-      - build
+      # - build
       - semgrep-scan
