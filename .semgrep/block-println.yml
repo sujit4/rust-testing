@@ -1,0 +1,7 @@
+rules:
+  - id: block-println
+    languages:
+      - rust
+    message: Don't print to standard output
+    pattern: println("...")
+    severity: ERROR
