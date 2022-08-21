@@ -3,5 +3,5 @@ rules:
     languages:
       - rust
     message: Don't print to standard output
-    pattern: println("...")
+    pattern: println!("...")
     severity: ERROR
