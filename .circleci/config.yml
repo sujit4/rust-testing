@@ -1,6 +1,32 @@
 version: 2.1
 
 jobs:
+
+  semgrep-scan:
+    parameters:
+      repo_path:
+        type: string
+        default: sujit4/rust-testing
+      default_branch:
+        type: string
+        default: main
+
+    environment:
+      # SEMGREP_BASELINE_REF: << parameters.default_branch >>
+      SEMGREP_RULES: .semgrep/
+      SEMGREP_REPO_NAME: << parameters.repo_path >>
+      SEMGREP_REPO_URL: << pipeline.project.git_url >>
+      SEMGREP_BRANCH: << pipeline.git.branch >>
+      SEMGREP_AUDIT_ON: unknown
+      SEMGREP_TIMEOUT: 300
+    docker:
+      - image: returntocorp/semgrep
+    steps:
+      - checkout
+      - run:
+          name: "Semgrep scan"
+          command: semgrep ci
+
   build:
     docker:
       - image: cimg/rust:1.63.0
@@ -8,5 +34,10 @@ jobs:
       - checkout
       - run: cargo --version
       - run: 
-          name: Run Tests
+          name: Run Test
           command: "cargo test"
+
+workflows:
+  main:
+    jobs:
+      - semgrep-scan
